@@ -1,0 +1,17 @@
+Name:                hv
+Version:             0.2-SNAPSHOT
+Description:         Haskell DSA-Verletzungssystem Utility
+License:             GPL-3
+License-file:        COPYING
+Author:              Roman Naumann
+Maintainer:          roman_naumann@fastmail.fm
+Build-Type:          Simple
+Cabal-Version:       >=1.2
+
+Executable hv
+  Main-is:           Main.hs
+  Build-Depends:     base >= 4,
+                     split >= 0.1.2,
+                     process >= 1.0.1.0,
+                     containers >= 0.3,
+                     haskell98 >= 1.0
