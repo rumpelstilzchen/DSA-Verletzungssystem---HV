@@ -86,17 +86,19 @@ Verletzungen Insgesamt: 8       (fkt: 4.470264317180617)
 anzahl auftritt. Wird die Kriegerin etwa mit 10 Schaden getroffen, bekommt sie
 eine Wunde in der entsprechenden Zone und zwei Verletzungen.
 
-
 Weiter unten ist die Verteilung dieser Verletzungen. Im Grunde DSA-Üblich
 mit 1/2, 1/3 und 1/4 Schwellen, nur dass es nicht mehr heißt, 'unter 1/2',
 sondern 'kleiner-gleich 1/2'. Die Verletzungen sind so verteilt, dass erst die
-entsprechenden Mali erst zur geltung kommen, sobald mindestens eine Verletzung der
+entsprechenden Mali erst zur Geltung kommen, sobald mindestens eine Verletzung der
 Reihe 'geschlagen' ist.
+Es empfielt sich, einfach eine entsprechende Zahl an Kästchen auszuzeichnen für
+jeder der Reihen (Kampfbereit/Verletzt/Schwer Verletzt/Fast Hinüber/Im Sterben).
+Wenn eine Verletzung entsteht, streicht man das Kästchen durch.
 
 Noch weiter unten steht die Gesamt-Verletzungsanzahl, die unsere Kriegerin erträgt,
 ohne ihm sterben zu liegen.
 
-Sind alle Verletzungen bei 'Nahezu Hinüber' geschlagen, wird das wie die DSA-
+Sind alle Kästchen bei 'Nahezu Hinüber' durchgestrichen, wird das wie die DSA-
 übliche Kampfunfähigkeit bei 1-5 LeP behandelt: Betroffener ist nur noch in der
 Lage sich mit GS-1 fortzubewegen und kann keine weiteren Aktionen ausführen.
 
@@ -105,11 +107,48 @@ Der Held ist i.d.R. ohnmächtig und liegt im Sterben. Er stirbt DSA-üblich in-
 nerhalb von W6*KO Kampfrunden. Der Spannung halber sollte der Spielleiter dies
 auswürfeln.
 
-Wenn alle Verletzungen unter 'im Sterben' weg sind, ist der Held auf der Stelle
+Wenn alle Kästchen unter 'im Sterben' weg sind, ist der Held auf der Stelle
 tot.
 
-TODO: Heilregeln
-TODO: Nicht tötlicher Schaden
+
+Nicht tötlicher Schaden, in DSA4 als TP(A) bezeichnet, wird ähnlich behandelt.
+Wenn ein Kämpfer TP(A) anrichtet, werden wie üblich Wunden und Verletzungen er-
+mittelt. Wunden kommen wie üblich zum Tragen, es ist aber nicht möglich, Körper-
+teile durch Wunden aus TP(A) abzuschlagen oder jdm. zu töten.
+Wundschwellen werden nicht reduziert. (TP(A) sind i.d.R. schon klein genug)
+Die ermittelten Verletzungen werden halbiert. Die (abgerundete) Hälfte sind nicht-
+tötliche Verletzungen, für die Kästchen nicht durchgestrichen sondern umkreist
+werden. Die (abgerundete) Hälfte sind normale Verletzungen.
+
+Sonderfall 1:
+Liegt ein Held mit m nichttötlichen Verletzungen im Sterben mit n Sterbekästchen
+durchgestrichen, ist er nur ohnmächtig und nicht 'im Sterben', so lange n >= m ist.
+
+Sonderfall 2:
+Erleidet ein Held (mit min. einer nichttötlichen Verletzung und all seinen Kästchen
+durchgestrichen oder umkreist) eine weitere (tötliche oder nichttötliche) Ver-
+letzung, streicht er die umkreisten Verletzungen durch.
+
+
+Heilregeln:
+Hier besteht sicher noch Verbesserungsbedarf, aber solange in der Gruppe keine Hel-
+den mit einer Konstitution >17 sind, sollte folgende (einfache) Regel genügen:
+Jede Nacht unter vernünftigen Bedingungen heilt ein Held eine Verletzung, egal ob
+tötlich oder nichttötlich. Es wird von unten nach oben wegradiert. In einer Reihe
+je nichttötliche Verletzungen zuerst.
+
+Alternative hierzu:
+    Ein W6 entspricht  einer Verletzung, damit können die Heilungsregeln aus WdS
+    ohne großen Aufwand übernommen werden. Für xW6+u gilt, dass x Verletzungen ge-
+    heilt werden und bei einer 1-u auf dem W6 eine weitere. yW6-v => y-1 geheilt,
+    bei v-6 auf W6 eine weitere Verletzung.
+
+Für Wundheilung gelten eins zu eins die Regeln aus WdS.
+
+Magische Heilung: Je 3.5 eigentlich geheilte Punkte heilen eine Verletzung. Ein Bal-
+sam kostet - um 3 Verletzungen zu heilen - also 11 AsP, für zwei Verletzungen 7 und
+für eine immer noch 4. (Sie können für übrige geheilte LeP die Alternativregeln von
+Oben anwenden)
 
 #################################################################################
 			Berechnungsdetails
@@ -118,4 +157,4 @@ TODO: Nicht tötlicher Schaden
 Um die Berechnungsdetails zu verstehen, schaut man am besten in die Main.hs
 Datei. Der Quellcode ist teilweise Kommentiert und im Wesentlichen Selbsterklärend.
 (Auch wenn Leider in Teilen zu viel für den Großteil unverständliches Higher-
-Order-Mess)
+Order-Mess drin ist)
