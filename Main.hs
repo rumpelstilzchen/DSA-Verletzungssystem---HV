@@ -128,32 +128,73 @@ versickern (s1,s2,s3,s4) | s4/=0 = (s1-1,s2,s3,s4+1)
                          | s2/=0 = (s1-1,s2+1,s3,s4)
                          | otherwise = error "error: s2=s3=s4=0"
 
-main = do args <- getArgs
-          let ko = read (args!!0) :: Int
-          let lep = read (args!!1) :: Int
-          let zh = if "zh" `elem` args then True else False
-          let mod = if length (filter (/="zh") args) > 2 then read (args!!2) :: Int else 0
-          let kst = anzVerl ko lep
-          let (s1,s2,s3,s4) = versickern $ verteilung kst
-          let s5 = (sterbeVerl ko zh)
-          if s1+s2+s3+s4 /= kst then error "error: s1+s2+s3+s4 /= kst" else return ()
-          putStrLn "hv 0.1"
-          putStrLn $ "KO:  "++show ko
-          putStrLn $ "LeP: "++show lep
-          putStrLn ""
-          putStrLn "Schadenstabelle:"
-          foldl1 (>>) $ map (\(s,v,w)->putStrLn ("  Ab: "++show s
-                                                 ++"  \tVerletzungen: "++show v
-                                                 ++"\tWunden: "++show w)) $
-            verlWundAb ko mod
-          putStrLn ""
-          putStrLn   "Aufteilung:"
-          putStrLn $ "  Kampfbereit:  " ++ show s1
-          putStrLn $ "  Verletzt:     " ++ show s2
-          putStrLn $ "  Schwer Verl.: " ++ show s3
-          putStrLn $ "  Fast Hinüber: " ++ show s4
-          putStrLn $ " Im Sterben: " ++ show s5
+uKst = "&#9744;"
 
-          putStrLn ""
-          putStrLn ("Verletzungen Insgesamt: "++show kst
-                    ++"\t(fkt: "++show (fromRational $ verhLepVerl ko :: Double)++")")
+pad l n | length (show n) >= l = show n
+        | otherwise = '0':pad (l-1) n
+
+zKst n = " " ++ (pull $ replicate n (uKst++" "))
+
+verlBogen :: Int -> Int -> Int -> Bool -> String
+verlBogen ko lep mod zh =
+   "digraph G {\n"
+ ++"  node [shape=record]\n"
+ ++"title [label = \"{Verletzungsbogen"
+ ++" | {Schaden | Verletzungen | Wunden } "
+ ++" | { "++pad 2 s1++" | "++show v1++" | "++show w1++" }"
+ ++" | { "++pad 2 s2++" | "++show v2++" | "++show w2++" }"
+ ++" | { "++pad 2 s3++" | "++show v3++" | "++show w3++" }"
+ ++" | { "++pad 2 s4++" | "++show v4++" | "++show w4++" }"
+ ++" | { "++pad 2 s5++" | "++show v5++" | "++show w5++" }"
+ ++" }\"]\n"
+ ++"1 [label = \"{Kampfbereit | { "++zKst k1++" }}\"]\n"
+ ++"2 [label = \"{Angeschlagen (-1/+3) | { "++zKst k2++" }}\"]\n"
+ ++"3 [label = \"{Verwundet (-2/+6)| { "++zKst k3++" }}\"]\n"
+ ++"4 [label = \"{Schwer Verwundet (-3/+9) | { "++zKst k4++" }}\"]\n"
+ ++"5 [label = \"{Im Sterben | { "++zKst k5++" }}\"]\n"
+ ++"title -> 1 -> 2 -> 3 -> 4 -> 5\n"
+ ++"}\n"
+   where kst = anzVerl ko lep
+         (s1,v1,w1):(s2,v2,w2):(s3,v3,w3):(s4,v4,w4):(s5,v5,w5):[] = verlWundAb ko mod
+         (k1,k2,k3,k4) = versickern (verteilung kst)
+         k5 = sterbeVerl ko zh
+
+app args
+  | head args == "--vbogen" = do
+    let ko  = read (args!!1) :: Int
+    let lep = read (args!!2) :: Int
+    let mod = if length (filter (/="zh") args) > 3 then read (args!!3) :: Int else 0
+    let zh = if "zh" `elem` args then True else False
+    putStr $ verlBogen ko lep mod zh
+  | otherwise = do
+    let ko = read (args!!0) :: Int
+    let lep = read (args!!1) :: Int
+    let zh = if "zh" `elem` args then True else False
+    let mod = if length (filter (/="zh") args) > 2 then read (args!!2) :: Int else 0
+    let kst = anzVerl ko lep
+    let (s1,s2,s3,s4) = versickern $ verteilung kst
+    let s5 = (sterbeVerl ko zh)
+    if s1+s2+s3+s4 /= kst then error "error: s1+s2+s3+s4 /= kst" else return ()
+    putStrLn "hv 0.1"
+    putStrLn $ "KO:  "++show ko
+    putStrLn $ "LeP: "++show lep
+    putStrLn ""
+    putStrLn "Schadenstabelle:"
+    foldl1 (>>) $ map (\(s,v,w)->putStrLn ("  Ab: "++show s
+                                           ++"  \tVerletzungen: "++show v
+                                           ++"\tWunden: "++show w)) $
+      verlWundAb ko mod
+    putStrLn ""
+    putStrLn   "Aufteilung:"
+    putStrLn $ "  Kampfbereit:  " ++ show s1
+    putStrLn $ "  Verletzt:     " ++ show s2
+    putStrLn $ "  Schwer Verl.: " ++ show s3
+    putStrLn $ "  Fast Hinüber: " ++ show s4
+    putStrLn $ " Im Sterben: " ++ show s5
+
+    putStrLn ""
+    putStrLn ("Verletzungen Insgesamt: "++show kst
+              ++"\t(fkt: "++show (fromRational $ verhLepVerl ko :: Double)++")")
+
+main = do args <- getArgs
+          app args

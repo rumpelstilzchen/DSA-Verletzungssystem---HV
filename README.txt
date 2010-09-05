@@ -37,11 +37,21 @@ nur ein oberflächlicher Schnitt oder eine vernachlässigbare Prellung, je nach
 Waffe.
 
 Das HV-Utility ist eine Konsolenanwendung, die folgendermaßen verwendet wird:
-	hv <KO> <LeP> [<WS-Mod>] [zh]
+	hv [--vbogen] <KO> <LeP> [<WS-Mod>] [zh]
 
 Ein Aufruf (v 0.1) für eine Kriegerin mit Konstitution 15, 34 Lep und weder
 Eisern noch Glasknochen als Vor/-Nachteile sieht folglich so aus:
 	hv 15 34
+
+ (Mit 
+ 	hv --vbogen
+ bekommt man eine Graphviz Dot-Datei, aus der man eine übersichtliche PDF mit
+ Verletzungsschwellen und Verletzungstabelle generieren kann. Hat man (unter
+ einem *nix System) Graphviz installiert, kann man die PDF mit:
+       	hv --vbogen 15 34 | dot -Tpdf > bogen.pdf
+ speichern oder mit 
+	hv --vbogen 15 34 | dot -Tpdf | lp
+ sofort drucken.)
 
 Wäre die Kriegerin "eisern", gäben wir einen dritten Parameter an:
 	hv 15 34 2
