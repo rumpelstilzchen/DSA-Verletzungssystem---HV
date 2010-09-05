@@ -139,8 +139,7 @@ verlBogen :: Int -> Int -> Int -> Bool -> String
 verlBogen ko lep mod zh =
    "digraph G {\n"
  ++"  node [shape=record]\n"
- ++"title [label = \"{Verletzungsbogen"
- ++" | {Schaden | Verletzungen | Wunden } "
+ ++"title [label = \"{{Schaden | Verletzungen | Wunden } "
  ++" | { "++pad 2 s1++" | "++show v1++" | "++show w1++" }"
  ++" | { "++pad 2 s2++" | "++show v2++" | "++show w2++" }"
  ++" | { "++pad 2 s3++" | "++show v3++" | "++show w3++" }"
