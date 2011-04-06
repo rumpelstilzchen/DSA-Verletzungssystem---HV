@@ -70,15 +70,15 @@ pull :: [[a]] -> [a]
 pull = foldl (++) []
 
 fkt :: [Rational]
-fkt = [0.2
-      ,0.4
-      ,0.7
-      ,1.1
-      ,1.6]
-      
+fkt = [0.2  -- Minimalschaden    (0 Wunden)
+      ,0.4  -- Normaler Schaden  (1 Wunden)
+      ,0.7  -- Mehr Schaden      (2 Wunden)
+      ,1.1  -- Hoher Schaden     (3 Wunden)
+      ,1.6] -- Tötl. Schaden     (4 Wunden)
+
 --Nimmt eine Entscheidungsfunktion und eine Faktorliste (für die Wundschwellen)
 --entgegen und konvertiert daraus Schaden -> Verletzungen
---Sinnvoll für dct sind: decide, decideUM, decide UML
+--Sinnvoll für dct sind: decide, decideUM, decideUML
 dmg2vrl dct fkt = min 3 $ foldl dct 0 fkt
 
 --Wie dmg2vrl, aber konvertiert Schaden -> Wunden
@@ -147,9 +147,9 @@ verlBogen ko lep mod zh =
  ++" | { "++pad 2 s5++" | "++show v5++" | "++show w5++" }"
  ++" }\"]\n"
  ++"1 [label = \"{Kampfbereit | { "++zKst k1++" }}\"]\n"
- ++"2 [label = \"{Angeschlagen (-1/+3) | { "++zKst k2++" }}\"]\n"
- ++"3 [label = \"{Verwundet (-2/+6)| { "++zKst k3++" }}\"]\n"
- ++"4 [label = \"{Schwer Verwundet (-3/+9) | { "++zKst k4++" }}\"]\n"
+ ++"2 [label = \"{Angeschlagen (+1/+3) | { "++zKst k2++" }}\"]\n"
+ ++"3 [label = \"{Verwundet (+2/+6)| { "++zKst k3++" }}\"]\n"
+ ++"4 [label = \"{Schwer Verwundet (+3/+9) | { "++zKst k4++" }}\"]\n"
  ++"5 [label = \"{Im Sterben | { "++zKst k5++" }}\"]\n"
  ++"title -> 1 -> 2 -> 3 -> 4 -> 5\n"
  ++"}\n"
